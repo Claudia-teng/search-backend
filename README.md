@@ -40,19 +40,15 @@ Client → FastAPI (app.py) → Streaming Layer (streaming.py) → LangGraph (gr
 
 ## 💾 Memory
 
-### Development (Current)
+### MemorySaver vs Postgresql saver
 
-- **MemorySaver**: Built-in in-memory checkpointing for conversation history
-- Thread-based state persistence using UUID checkpoint IDs
-- Suitable for development and testing
+The system uses in-memory MemorySaver for development, while PostgreSQL Saver is recommended for production to enable persistent storage of conversation history.
 
-### Production (Recommended)
+### Deal with long chat history:
 
-For production deployments, migrate to **PostgreSQL Saver**:
-
-- **Short-term memory**: Recent conversation context
-- **Long-term memory**: Historical user interactions
-- **Pagination**: Efficient handling of large conversation histories
+- **Sliding Window**: Keep only last N messages (e.g., 20) in LLM context
+- **Summarization**: Compress old messages into summary, keep recent messages
+- **RAG Memory**: Store all messages in vector DB, retrieve relevant ones semantically
 
 ## 🔍 Search API
 
@@ -60,15 +56,8 @@ For production deployments, migrate to **PostgreSQL Saver**:
 
 **Tavily Search API** is used over SerpAPI for these reasons:
 
-| Feature                   | Tavily                                             | SerpAPI                            |
-| ------------------------- | -------------------------------------------------- | ---------------------------------- |
-| **AI-Optimized**          | ✅ Specifically designed for LLM/AI agents         | ❌ General-purpose search scraping |
-| **Response Format**       | Clean, structured JSON perfect for LLM consumption | Raw HTML/complex nested data       |
-| **Content Quality**       | Pre-processed, relevant snippets                   | Requires additional parsing        |
-| **LangChain Integration** | Native `TavilySearchResults` tool                  | Manual implementation needed       |
-| **Speed**                 | Optimized for AI workflows                         | Generic web scraping speed         |
-
-Tavily is built specifically for AI agents and returns clean, contextual results that GPT-4o can directly use without extensive preprocessing.
+1. **AI-Optimized**: Specifically designed for LLM/AI agents, unlike SerpAPI's general-purpose search scraping
+2. **LangChain Integration**: Native `TavilySearchResults` tool, whereas SerpAPI needs manual implementation
 
 ## 🚀 Installation and Start
 
