@@ -1,9 +1,9 @@
 ## 🔄 Changes from Previous Version
 
-- **Multi-round conversations**: Added support for multiple rounds of back-and-forth conversation for iterative searching and refinement and
-- **Framework migration**: Migrated from AG2 to LangGraph for better streaming support and state management
-- **Search provider update**: Switched from SerpAPI to Tavily for AI-optimized search results with better LangChain integration
-- **Streaming architecture**: Implemented Server-Sent Events (SSE) for real-time response streaming
+- **Multi-round conversations**: Added support for multiple rounds of back-and-forth conversation for iterative searching and refinement
+- **Framework migration**: Migrated from AG2 to **LangGraph** for better streaming support and state management
+- **Search provider update**: Switched from SerpAPI to **Tavily** for AI-optimized search results with better LangChain integration
+- **Streaming architecture**: Implemented **Server-Sent Events (SSE**) for real-time response streaming
 
 ## 🏗️ Architecture
 
@@ -137,7 +137,7 @@ curl "http://localhost:8000/chat_stream/What%20is%20LangGraph?"
 curl "http://localhost:8000/chat_stream/Tell%20me%20more?checkpoint_id=abc-123-def-456"
 ```
 
-**SSE Stream Example:**
+ <img width="927" height="638" alt="Screen Shot 2025-10-19 at 7 28 33 PM" src="https://github.com/user-attachments/assets/56db4823-dddb-4f06-9b9e-12a5fa2d35a7" />
 
 ## 🛠️ Project Structure
 
@@ -155,4 +155,7 @@ search-backend/
 
 ## 📚 Reference
 
-https://github.com/harishneel1/perplexity_2.0
+Adapted from [perplexity_2.0](https://github.com/harishneel1/perplexity_2.0) :
+
+- Restructured to multi-agent architecture (user_proxy + search_assistant agents)
+- Added system message to search assistant to guide tool usage and response behavior
